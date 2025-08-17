@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>噪点废片拯救：ComfyUI Upscale 给萤火虫照片做像素整容 | 泽芝Log</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="“哥！你看这拍的萤火虫照片还有救吗？” 晚上12点多，手机屏幕突然亮起老妹的消息。 晚上她跑到山上去拍萤火虫，在山上蹲了几个小时喂蚊子。回来导片一看，高感噪点像撒了把沙子在画面上，暗部全是彩色噪点，图片放大全是颗粒。 我点开原图，6000×4000 像素的照片在屏幕上炸开： “试试手机LR？” 我回了条消息。半小时后收到她的回复：”降噪拉到最大还是糊！市面上一些修图APP去噪要开会员呢。” 想起之">
+<meta property="og:type" content="article">
+<meta property="og:title" content="噪点废片拯救：ComfyUI Upscale 给萤火虫照片做像素整容">
+<meta property="og:url" content="http://yoursite.com/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/index.html">
+<meta property="og:site_name" content="泽芝Log">
+<meta property="og:description" content="“哥！你看这拍的萤火虫照片还有救吗？” 晚上12点多，手机屏幕突然亮起老妹的消息。 晚上她跑到山上去拍萤火虫，在山上蹲了几个小时喂蚊子。回来导片一看，高感噪点像撒了把沙子在画面上，暗部全是彩色噪点，图片放大全是颗粒。 我点开原图，6000×4000 像素的照片在屏幕上炸开： “试试手机LR？” 我回了条消息。半小时后收到她的回复：”降噪拉到最大还是糊！市面上一些修图APP去噪要开会员呢。” 想起之">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/%E5%8E%9F%E5%9B%BE.jpg">
+<meta property="og:image" content="http://yoursite.com/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/%E6%A8%A1%E5%9E%8Bscale%E5%B7%A5%E4%BD%9C%E6%B5%81.png">
+<meta property="og:image" content="http://yoursite.com/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/sd%E4%BF%AE%E5%A4%8D%E4%B8%8D%E6%94%BE%E5%A4%A7%E5%B7%A5%E4%BD%9C%E6%B5%81.png">
+<meta property="og:image" content="http://yoursite.com/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/sd%E6%94%BE%E5%A4%A7%E5%B7%A5%E4%BD%9C%E6%B5%81.png">
+<meta property="og:image" content="http://yoursite.com/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/%E5%8E%9F%E5%9B%BE.jpg">
+<meta property="og:image" content="http://yoursite.com/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/%E5%8E%9F%E5%9B%BE-ps%E9%99%8D%E5%99%AA.jpg">
+<meta property="og:image" content="http://yoursite.com/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/%E5%8E%9F%E5%9B%BE-%E6%A8%A1%E5%9E%8Bx2x4.jpg">
+<meta property="og:image" content="http://yoursite.com/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/%E5%8E%9F%E5%9B%BE-sdx4%E6%A8%A1%E5%9E%8Bx2.jpg">
+<meta property="og:image" content="http://yoursite.com/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/%E6%94%BE%E5%A4%A7%E6%95%88%E6%9E%9C%E5%AF%B9%E6%AF%94%E5%9B%BE.png">
+<meta property="og:image" content="http://yoursite.com/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/%E5%8E%9F%E5%9B%BE2-x4x2.jpg">
+<meta property="og:image" content="http://yoursite.com/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/%E5%8E%9F%E5%9B%BE3-x4x2.jpg">
+<meta property="og:image" content="http://yoursite.com/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/%E5%8E%9F%E5%9B%BE4-x4x2.jpg">
+<meta property="article:published_time" content="2025-08-17T08:55:31.000Z">
+<meta property="article:modified_time" content="2025-08-17T09:12:52.301Z">
+<meta property="article:author" content="Kui Yang">
+<meta property="article:tag" content="ComfyUI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/%E5%8E%9F%E5%9B%BE.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="泽芝Log" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">泽芝Log</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-噪点废片拯救：ComfyUI Upscale 给萤火虫照片做像素整容" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/" class="article-date">
+  <time datetime="2025-08-17T08:55:31.000Z" itemprop="datePublished">2025-08-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      噪点废片拯救：ComfyUI Upscale 给萤火虫照片做像素整容
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>“哥！你看这拍的萤火虫照片还有救吗？” 晚上12点多，手机屏幕突然亮起老妹的消息。</p>
+<p>晚上她跑到山上去拍萤火虫，在山上蹲了几个小时喂蚊子。回来导片一看，高感噪点像撒了把沙子在画面上，暗部全是彩色噪点，图片放大全是颗粒。</p>
+<p>我点开原图，6000×4000 像素的照片在屏幕上炸开：<br><img src="/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/%E5%8E%9F%E5%9B%BE.jpg" class=""></p>
+<p>“试试手机LR？” 我回了条消息。半小时后收到她的回复：”降噪拉到最大还是糊！市面上一些修图APP去噪要开会员呢。”</p>
+<p>想起之前捣鼓玩耍过一段时间的ComfyUI。或许，使用这玩意跑模型能救这照片呢？”我白天试试。”</p>
+<a id="more"></a>
+<h2 id="Upscale"><a href="#Upscale" class="headerlink" title="Upscale"></a>Upscale</h2><p>Upscale 可以将一些分辨率很低的照片，通过技术手段修复并放大，转化成高清照片。我们的目标是将一张 6000*4000 像素的照片去噪修复，不需要额外放大，可以尝试使用 Upscale 模型和 ComfyUI_UltimateSDUpscale 来试试效果。</p>
+<h3 id="Upscale-Image-using-Model"><a href="#Upscale-Image-using-Model" class="headerlink" title="Upscale Image using Model"></a>Upscale Image using Model</h3><p>先缩小再放大的魔法：通过 Upscale Model 修复图片，必然会放大图片，然而我们只需要修复图片，不需要额外放大图片，因此可以将图片缩小 1/8，然后再使用模型修复放大8倍还原图片大小，同时优化图片质量。</p>
+<p>工作流如下：</p>
+<ol>
+<li>加载6000*4000摄影图片;</li>
+<li>Upscale Image 将图片缩小为原来的 1/8;</li>
+<li>Load upscale Model 节点加载模型，第一个模型放大4倍，第二个模型放大2倍; Upscale Image (using Model) 节点输出放大的图片。</li>
+</ol>
+<img src="/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/%E6%A8%A1%E5%9E%8Bscale%E5%B7%A5%E4%BD%9C%E6%B5%81.png" class="">
+<p>1分钟左右出结果，实验效果见效果对比部分，去噪效果还不错。</p>
+<p>这里我使用的 Upscale 模型是如下，下载后将其放到 ComfyUI 里的 models/upscale_models 文件夹内。</p>
+<ol>
+<li><a href="https://openmodeldb.info/models/2x-realesrgan-x2plus" target="_blank" rel="noopener">RealESRGAN_x2Plus</a></li>
+<li><a href="https://openmodeldb.info/models/4x-realesrgan-x4plus" target="_blank" rel="noopener">RealESRGAN_x4Plus</a></li>
+</ol>
+<h3 id="Ultimate-SD-Upscale"><a href="#Ultimate-SD-Upscale" class="headerlink" title="Ultimate SD Upscale"></a>Ultimate SD Upscale</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>使用SD放大需要安装 <a href="https://github.com/ssitu/ComfyUI_UltimateSDUpscale?tab=readme-ov-file" target="_blank" rel="noopener">ComfyUI_UltimateSDUpscale</a> 插件，该插件有三种节点：</p>
+<p>1、Ultimate SD Upscale（标准节点）</p>
+<ul>
+<li>功能<ul>
+<li>预放大：使用指定的 Upscale Model 对输入图像进行初始放大（默认按模型倍数，或通过 upscale_by 覆盖）。</li>
+<li>分块细化：将放大后的图像切分为多个 tile，逐个 tile 进行重绘处理，再智能拼接，实现高质量、无缝的图像放大。</li>
+</ul>
+</li>
+<li>用途：需要高倍数放大且保留高质量细节的情况。</li>
+</ul>
+<p>2、Ultimate SD Upscale (No Upscale)</p>
+<ul>
+<li>功能<ul>
+<li>跳过预放大，直接对原始分辨率图像进行分块细化。</li>
+<li>仅执行分块重绘，不改变图像尺寸。</li>
+</ul>
+</li>
+<li>用途：图像无需放大，只需局部修复细节。</li>
+</ul>
+<p>3、Ultimate SD Upscale (Custom Sample)</p>
+<ul>
+<li>功能<ul>
+<li>自定义采样器：允许接入外部采样器（如 KSampler），替代默认的 SD 重绘流程。</li>
+<li>灵活性更高：可自由控制采样步数、CFG Scale、种子等参数。</li>
+</ul>
+</li>
+<li>用途：需要精细控制重绘过程（如特定采样器、步数）。</li>
+</ul>
+<h4 id="第一次-SD-尝试碰壁"><a href="#第一次-SD-尝试碰壁" class="headerlink" title="第一次 SD 尝试碰壁"></a>第一次 SD 尝试碰壁</h4><p>Ultimate SD Upscale (No Upscale) 节点不就刚好满足我的要求嘛，直接修复图片，不需要放大。将工作流调整如下，点击运行，坐等结果。</p>
+<img src="/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/sd%E4%BF%AE%E5%A4%8D%E4%B8%8D%E6%94%BE%E5%A4%A7%E5%B7%A5%E4%BD%9C%E6%B5%81.png" class="">
+<p>我电脑 MAC M1芯片16GB内存，40多分钟过去了，图片还没有跑出来，我放弃了。图片像素太大，SD 根本跑不动。</p>
+<h4 id="第二次-SD-尝试"><a href="#第二次-SD-尝试" class="headerlink" title="第二次 SD 尝试"></a>第二次 SD 尝试</h4><p>考虑到耗时时间长短，仍然将图片缩小为原来的 1/8，再使用 Ultimate SD Upscale 和 Upscale Model 联合放大修复。</p>
+<p>工作流如下：</p>
+<ol>
+<li>加载6000*4000摄影图片;</li>
+<li>Upscale Image 将图片缩小为原来的 1/8;</li>
+<li>Ultimate SD Upscale 放大4倍，Upscale Model 放大2倍，然后输出图片。</li>
+</ol>
+<img src="/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/sd%E6%94%BE%E5%A4%A7%E5%B7%A5%E4%BD%9C%E6%B5%81.png" class="">
+<p>20多分钟终于出结果了，看效果图还不错，噪点消除的比较彻底，细节也保留的不错。</p>
+<p>在 ComfyUI 中，Upscale Models 和 Ultimate SD Upscale 的放大倍数由不同的参数控制，都可以放大图片：</p>
+<ol>
+<li>Load Upscale Model 节点放大倍数由模型本身决定。下载模型的时候会看到模型标题里写 X2 或 X4，它们的意思是放大的倍数，X2 就是放大两倍，以此类推；</li>
+<li>Ultimate SD Upscale 节点即使连接 Load Upscale Model 节点，但最终放大倍数仍由 upscale_by 参数决定。 </li>
+</ol>
+<h3 id="效果对比"><a href="#效果对比" class="headerlink" title="效果对比"></a>效果对比</h3><p>修复效果对比图如下，图1为原图，图2为三流PS选手去噪结果，图3为 Upscale Model x4x2 结果，图4为 SD x4 + Upscale Model x2 结果。</p>
+<div style="display: flex; gap: 10px; margin-bottom: 20px;">
+  <img src="原图.jpg" alt="原图" style="width: 50%; height: auto;">
+  <img src="原图-ps降噪.jpg" alt="原图-ps降噪" style="width: 50%; height: auto;">
+</div>
+<div style="display: flex; gap: 10px; margin-bottom: 20px;">
+  <img src="原图-模型x2x4.jpg" alt="原图-模型x2x4" style="width: 50%; height: auto;">
+  <img src="原图-sdx4模型x2.jpg" alt="原图-sdx4模型x2" style="width: 50%; height: auto;">
+</div>
+
+<p>放大图片右上角 1024*1024 的空间，可以看到原图和PS降噪的图片噪点非常多，使用 Upscale Model 和 SD 修复后降噪效果都不错，个人认为 SD 修复效果更好一点，但是考虑到耗时问题，此场景中 Upscale Model 修复性价比更高。</p>
+<img src="/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/%E6%94%BE%E5%A4%A7%E6%95%88%E6%9E%9C%E5%AF%B9%E6%AF%94%E5%9B%BE.png" class="">
+<h2 id="图片分享"><a href="#图片分享" class="headerlink" title="图片分享"></a>图片分享</h2><p>最后来一组老妹拍的照片分享，下图均是 Scale Model 修复结果。</p>
+<img src="/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/%E5%8E%9F%E5%9B%BE2-x4x2.jpg" class="">
+<p><br></p>
+<img src="/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/%E5%8E%9F%E5%9B%BE3-x4x2.jpg" class="">
+<p><br></p>
+<img src="/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/%E5%8E%9F%E5%9B%BE4-x4x2.jpg" class="">
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/" data-id="cmefgi0eh0000ljgug59t8wzt" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ComfyUI/" rel="tag">ComfyUI</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/04/18/SSM%E4%B8%89%E5%A4%A7%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88-Spring-SpringMVC-MyBatis/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SSM 三大框架整合 (Spring+SpringMVC+MyBatis) </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E5%AE%83/">其它</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8F%AF%E8%A7%86%E5%8C%96/">可视化</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/3ds-Max/" rel="tag">3ds Max</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ComfyUI/" rel="tag">ComfyUI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/D3-js/" rel="tag">D3.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">D设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/" rel="tag">MyBatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/" rel="tag">SpringMVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E6%9C%AC%E5%8F%AF%E8%A7%86%E5%8C%96/" rel="tag">文本可视化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag">神经网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" rel="tag">论文阅读</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%8D%E4%BA%91/" rel="tag">词云</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/3ds-Max/" style="font-size: 10px;">3ds Max</a> <a href="/tags/ComfyUI/" style="font-size: 10px;">ComfyUI</a> <a href="/tags/D3-js/" style="font-size: 15px;">D3.js</a> <a href="/tags/D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 10px;">D设计模式</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SpringMVC/" style="font-size: 10px;">SpringMVC</a> <a href="/tags/%E6%96%87%E6%9C%AC%E5%8F%AF%E8%A7%86%E5%8C%96/" style="font-size: 15px;">文本可视化</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">机器学习</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">神经网络</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" style="font-size: 15px;">论文阅读</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">设计模式</a> <a href="/tags/%E8%AF%8D%E4%BA%91/" style="font-size: 15px;">词云</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">十月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/08/17/%E5%99%AA%E7%82%B9%E5%BA%9F%E7%89%87%E6%8B%AF%E6%95%91%EF%BC%9AComfyUI%20Upscale%20%E7%BB%99%E8%90%A4%E7%81%AB%E8%99%AB%E7%85%A7%E7%89%87%E5%81%9A%E5%83%8F%E7%B4%A0%E6%95%B4%E5%AE%B9/">噪点废片拯救：ComfyUI Upscale 给萤火虫照片做像素整容</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/18/SSM%E4%B8%89%E5%A4%A7%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88-Spring-SpringMVC-MyBatis/">SSM 三大框架整合 (Spring+SpringMVC+MyBatis) </a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/28/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">排序算法总结</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/25/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0-TagPies-Comparative-Visualization-of-Textual-Data/">论文笔记-TagPies: Comparative Visualization of Textual Data</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/">设计模式-访问者模式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2025 Kui Yang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
